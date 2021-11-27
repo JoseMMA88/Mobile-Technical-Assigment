@@ -24,6 +24,7 @@
 		C4E92F94275280AC00EDFFE2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F93275280AC00EDFFE2 /* CustomButton.swift */; };
 		C4E92F9727528F7E00EDFFE2 /* CartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */; };
 		C4E92F9A275290D600EDFFE2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F99275290D600EDFFE2 /* ProductCell.swift */; };
+		C4E92F9C27529BA700EDFFE2 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		C4E92F93275280AC00EDFFE2 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDetailViewController.swift; sourceTree = "<group>"; };
 		C4E92F99275290D600EDFFE2 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E92F862752358800EDFFE2 /* RequestHelper.swift */,
+				C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				C4E92F872752358800EDFFE2 /* RequestHelper.swift in Sources */,
 				C4E92F55275231BD00EDFFE2 /* SceneDelegate.swift in Sources */,
 				C4E92F9727528F7E00EDFFE2 /* CartDetailViewController.swift in Sources */,
+				C4E92F9C27529BA700EDFFE2 /* DBHelper.swift in Sources */,
 				C4E92F5D275231BE00EDFFE2 /* Mobile_Technical_Assigment.xcdatamodeld in Sources */,
 				C4E92F8C2752617E00EDFFE2 /* UserCart.swift in Sources */,
 				C4E92F8E275265DE00EDFFE2 /* CartDetailTableViewController.swift in Sources */,

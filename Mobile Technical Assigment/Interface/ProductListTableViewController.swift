@@ -8,21 +8,27 @@
 import UIKit
 import CoreData
 
-class ProductListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ProductListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, CartDetailViewDelegate {
     
     //MARK: Variables
     var moc: NSManagedObjectContext?
     var userCart: UserCart?
+    var appDelegate: AppDelegate?
+    var _fetchedResultsController: NSFetchedResultsController<Product>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        self.moc = appDelegate.persistentContainer.viewContext
-        self.userCart = UserCart()
+        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+    
+        self.appDelegate = appDel
+        self.moc = appDelegate!.persistentContainer.viewContext
+        DBHelper.moc = self.moc
+        self.userCart = UserCart(Products: DBHelper.getAllCartProduct())
         
         self.setUpInterface()
     }
+    
     
     // MARK: - Interface
     func setUpInterface(){
@@ -41,7 +47,6 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cartImageTapped))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
-//        imageView.image.frame = CGRect(x: imageView.frame.origin.x, y: imageView.frame.origin.y, width: 100.0, height: 100.0)
         
         // Horizontal StackView
         let stackView = UIStackView()
@@ -67,15 +72,18 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         return self.fetchedResultsController?.sections?.count ?? 0
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let sectionInfo = self.fetchedResultsController?.sections![section]
         return sectionInfo?.numberOfObjects ?? 0
     }
     
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
+    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -88,6 +96,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         return sectionTitle
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath)
 
@@ -95,6 +104,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
 
         return cell
     }
+    
     
     func configure(Cell cell: UITableViewCell, atIndexPath indexPath: IndexPath){
         
@@ -133,6 +143,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         }
     }
     
+    
     @objc func addProductToCart(_ sender: CustomButton){
         
         guard let indexPath = sender.indexPath else { return }
@@ -140,10 +151,12 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         if let product: Product = fetchedResultsController?.object(at: indexPath){
             self.userCart!.addProduct(Product: product)
             self.tableView.reloadData()
+            appDelegate?.saveContext()
         }
         
 
     }
+    
     
     @objc func removeProductToCart(_ sender: CustomButton){
         
@@ -152,18 +165,23 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         if let product: Product = fetchedResultsController?.object(at: indexPath){
             self.userCart!.removeProduct(Product: product)
             self.tableView.reloadData()
+            appDelegate?.saveContext()
         }
     }
     
     
     //MARK: NSFetched Request
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Product>? = {
+    var fetchedResultsController: NSFetchedResultsController<Product>? {
         
         guard let moc = moc else { return nil }
+        
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController
+        }
 
         let fetchRequest: NSFetchRequest = Product.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "type", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "type", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                   managedObjectContext: moc,
@@ -177,17 +195,30 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         catch{
             print(error)
         }
+        _fetchedResultsController = fetchedResultsController
         
         return fetchedResultsController
-    }()
+    }
+    
+    
+    //MARK: CartDetailViewDelegate
+    func changesAtUserCart(View view: CartDetailViewController, UserCart userCart: UserCart) {
+        self.userCart = userCart
+        
+        _fetchedResultsController = nil
+        self.tableView.reloadData()
+    }
+    
     
     //MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if(segue.identifier == "GoToCartDetail"){
-            let vc: CartDetailViewController = segue.destination.view as! CartDetailViewController
+            let vc: CartDetailViewController = segue.destination as! CartDetailViewController
             vc.userCart = self.userCart
+            vc.moc = self.moc
+            vc.delegate = self
         }
     }
 

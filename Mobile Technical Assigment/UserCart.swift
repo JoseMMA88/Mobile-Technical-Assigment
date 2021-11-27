@@ -4,23 +4,11 @@
 //
 //  Created by Jose Manuel Malagón Alba on 27/11/21.
 
-
-class ProductCart {
-    var product: Product
-    var quantity: Int
-    
-    init(Product product: Product, Quantity quantity: Int) {
-        self.product = product
-        self.quantity = quantity
-    }
-    
-}
-
 class UserCart {
-    var products: [ProductCart]?
+    var products: [CartProduct]?
     
-    init() {
-        self.products = []
+    init(Products products: [CartProduct]) {
+        self.products = products
     }
     
     func addProduct(Product product: Product){
@@ -30,7 +18,9 @@ class UserCart {
         }
         // ADD new
         else {
-            self.products!.append(ProductCart(Product: product, Quantity: 1))
+            if let productCart = DBHelper.addCartProduct(ByProduct: product){
+                self.products?.append(productCart)
+            }
         }
     }
     
@@ -40,15 +30,18 @@ class UserCart {
             if(productCart.quantity > 0){
                 productCart.quantity -= 1
             }
+            
+            if(productCart.quantity <= 0){
+                DBHelper.deleteCartProduct(ByProduct: productCart.product!)
+            }
+            
+            self.products?.removeAll(where: { $0.quantity <= 0 })
         }
         
-        self.products = self.products?.filter({ product in
-            return product.quantity > 0
-        })
     }
     
-    func getproductCart(ByProduct product: Product) -> ProductCart? {
-        return self.products!.first(where: { $0.product ==  product }) ?? nil
+    func getproductCart(ByProduct product: Product) -> CartProduct? {
+        return DBHelper.getCartProduct(ByProduct: product)
     }
     
     func calculatePrice(ByType type: String) -> Double {
@@ -56,12 +49,22 @@ class UserCart {
         var totalPrice = 0.0
         
         if let typeProducts = self.products?.filter({ product in
-            return product.product.type == type
+            return product.product!.type == type
         }){
 
             for product in typeProducts {
-                totalPrice += product.product.price * Double(product.quantity)
+                totalPrice += product.product!.price * Double(product.quantity)
             }
+        }
+        
+        return totalPrice
+    }
+    
+    func calculateTotalPrice() -> Double {
+        var totalPrice = 0.0
+        
+        for cartProduct in self.products! {
+            totalPrice += cartProduct.product!.price * Double(cartProduct.quantity)
         }
         
         return totalPrice
@@ -72,30 +75,13 @@ class UserCart {
         var currenType = ""
         
         self.products?.forEach({ product in
-            if(currenType != product.product.type){
+            if(currenType != product.product!.type){
                 typeNum += 1
-                currenType = product.product.type!
+                currenType = product.product!.type!
             }
         })
         
         return typeNum
     }
-    
-    func splitProductsByCategory() -> [[Product]] {
-        var productByCategory: [[Product]] = []
-        
-        var category = ""
-        
-        for cartProduct in self.products! {
-            if(cartProduct.product.type != category){
-                productByCategory.append([])
-                category = cartProduct.product.type!
-            }
-            productByCategory[productByCategory.endIndex - 1].append(cartProduct.product)
-        }
-        
-        return productByCategory
-    }
-    
     
 }

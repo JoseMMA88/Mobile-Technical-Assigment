@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
-class CartDetailViewController: UIViewController {
+protocol CartDetailViewDelegate {
+    func changesAtUserCart(View view: CartDetailViewController, UserCart: UserCart)
+}
+
+class CartDetailViewController: UIViewController, CartDetailTableViewDelegate {
+    
     
     //MARK: Outlets
     @IBOutlet weak var cartIcon: UIImageView!
@@ -16,21 +22,57 @@ class CartDetailViewController: UIViewController {
     
     //MARK: Variables
     var userCart: UserCart?
+    var moc: NSManagedObjectContext?
+    var delegate: CartDetailViewDelegate?
     
-    //MARK: Variables
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-
         
+        super.viewDidLoad()
+        
+        self.setUpInterface()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParent {
+            self.delegate?.changesAtUserCart(View: self, UserCart: self.userCart!)
+        }
+    }
+    
+    
+    //MARK: Methods
+    
+    func setUpInterface() {
+        self.checkoutButton.layer.cornerRadius = 5
+        let titleLabel = String(format: "Checkout %@", "\(self.userCart!.calculateTotalPrice())".toCurrencyFormat())
+        self.checkoutButton.setTitle(NSLocalizedString(titleLabel, comment: "Cart total price button title"),
+                                     for: .normal)
+    }
     
     //MARK: Actions
     @IBAction func checkoutButtonTapped(_ sender: UIButton){
-        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: CartDetailTableViewDelegate
+    func changesAtUserCart(View view: CartDetailTableViewController, UserCart userCart: UserCart) {
+        self.userCart = userCart
+        self.setUpInterface()
     }
 
+    
+    //MARK: - Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowContainer" {
+            let vc: CartDetailTableViewController = segue.destination as! CartDetailTableViewController
+            vc.userCart = self.userCart
+            vc.moc = self.moc
+            vc.delegate = self
+        }
+    }
+    
     
 
 }
