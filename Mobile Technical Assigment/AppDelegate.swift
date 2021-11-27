@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        DBHelper.dataRequest(withCompletionHandler: { data, error in
+        RequestHelper.dataRequest(withCompletionHandler: { data, error in
             guard let data = data else { return }
             
             let fetchRequestModel = NSFetchRequest<Product>(entityName: "Product")

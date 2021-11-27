@@ -41,13 +41,14 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cartImageTapped))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
+//        imageView.image.frame = CGRect(x: imageView.frame.origin.x, y: imageView.frame.origin.y, width: 100.0, height: 100.0)
         
         // Horizontal StackView
         let stackView = UIStackView()
         stackView.axis = NSLayoutConstraint.Axis.horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 20.0
+        stackView.spacing = 50.0
         
         stackView.addArrangedSubview(textLabel)
         stackView.addArrangedSubview(imageView)
@@ -55,7 +56,8 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         
         self.navigationController?.navigationBar.addSubview(stackView)
         
-        stackView.centerYAnchor.constraint(equalTo: (self.navigationController?.navigationBar.centerYAnchor)!).isActive = true
+        let parentView = self.navigationController!.navigationBar
+        stackView.centerYAnchor.constraint(equalTo: parentView.centerYAnchor).isActive = true
         stackView.centerXAnchor.constraint(equalTo: (self.navigationController?.navigationBar.centerXAnchor)!).isActive = true
     }
 
@@ -80,7 +82,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         var sectionTitle = ""
         
         if let sectionInfo = self.fetchedResultsController?.sections![section] {
-            sectionTitle = sectionInfo.name.capitalizingFirstLetter() + " \(self.userCart?.calculatePrice(ByType: sectionInfo.name) ?? 0.00)"
+            sectionTitle = sectionInfo.name.capitalizingFirstLetter() + " " + String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
         }
         
         return sectionTitle
@@ -104,7 +106,20 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
             auxCell.minusView.backgroundColor = .clear
             
             auxCell.productName.text = product.name
-            auxCell.productPrice.text = "\(product.price)"
+            auxCell.productPrice.text = "\(product.price)".toCurrencyFormat()
+            
+            let addCustomButton = auxCell.addButton as! CustomButton
+            addCustomButton.indexPath = indexPath
+            auxCell.addButton.addTarget(self, action: #selector(addProductToCart(_:)), for: .touchDown)
+            
+            auxCell.productQuantity.text = "0"
+            if let productCart = self.userCart?.getproductCart(ByProduct: product){
+                auxCell.productQuantity.text = String(productCart.quantity)
+            }
+            
+            let removeCustomButton = auxCell.removeButton as! CustomButton
+            removeCustomButton.indexPath = indexPath
+            auxCell.removeButton.addTarget(self, action: #selector(removeProductToCart(_:)), for: .touchDown)
         }
         
     }
@@ -112,8 +127,31 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
     //MARK: - Actions
     
     @objc func cartImageTapped(sender: UITapGestureRecognizer){
+        
         if sender.state == .ended {
             self.performSegue(withIdentifier: "GoToCartDetail", sender: self)
+        }
+    }
+    
+    @objc func addProductToCart(_ sender: CustomButton){
+        
+        guard let indexPath = sender.indexPath else { return }
+        
+        if let product: Product = fetchedResultsController?.object(at: indexPath){
+            self.userCart!.addProduct(Product: product)
+            self.tableView.reloadData()
+        }
+        
+
+    }
+    
+    @objc func removeProductToCart(_ sender: CustomButton){
+        
+        guard let indexPath = sender.indexPath else { return }
+        
+        if let product: Product = fetchedResultsController?.object(at: indexPath){
+            self.userCart!.removeProduct(Product: product)
+            self.tableView.reloadData()
         }
     }
     
@@ -148,23 +186,10 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if(segue.identifier == "GoToCartDetail"){
-                //TODO CREATE NEW TABLEWVIEW CONTROLLER
+            let vc: CartDetailViewController = segue.destination.view as! CartDetailViewController
+            vc.userCart = self.userCart
         }
     }
 
 }
 
-
-
-
-class ProductCell: UITableViewCell {
-    
-    //MARK: Outlets
-    @IBOutlet weak var productName: UILabel!
-    @IBOutlet weak var productPrice: UILabel!
-    @IBOutlet weak var minusView: UIView!
-    @IBOutlet weak var plusView: UIView!
-    @IBOutlet weak var productQuantity: UILabel!
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var removeButton: UIButton!
-}

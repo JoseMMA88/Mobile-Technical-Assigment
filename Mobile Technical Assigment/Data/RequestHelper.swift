@@ -1,5 +1,5 @@
 //
-//  DBHelper.swift
+//  RequestHelper.swift
 //  Mobile Technical Assigment
 //
 //  Created by Jose Manuel Malagón Alba on 27/11/21.
@@ -23,7 +23,7 @@ struct ProductData: Codable {
 }
 
 
-public class DBHelper {    
+public class RequestHelper {    
     
     //MARK: Variables
     static let apiURL = "https://raw.githubusercontent.com/bmdevel/MobileCodeChallengeResources/main/groceryProducts.json"
