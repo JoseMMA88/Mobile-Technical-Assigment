@@ -25,6 +25,7 @@
 		C4E92F9727528F7E00EDFFE2 /* CartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */; };
 		C4E92F9A275290D600EDFFE2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F99275290D600EDFFE2 /* ProductCell.swift */; };
 		C4E92F9C27529BA700EDFFE2 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */; };
+		C4E92F9F2752CE8300EDFFE2 /* AppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9E2752CE8200EDFFE2 /* AppearanceHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDetailViewController.swift; sourceTree = "<group>"; };
 		C4E92F99275290D600EDFFE2 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		C4E92F9E2752CE8200EDFFE2 /* AppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,11 +119,12 @@
 		C4E92F51275231BD00EDFFE2 /* Mobile Technical Assigment */ = {
 			isa = PBXGroup;
 			children = (
+				C4E92F9D2752CE6200EDFFE2 /* Appearance */,
 				C4E92F98275290B000EDFFE2 /* Cells */,
 				C4E92F9527528CC300EDFFE2 /* CustomViews */,
 				C4E92F922752809400EDFFE2 /* CustomClasses */,
 				C4E92F91275269A000EDFFE2 /* Extensions */,
-				C4E92F88275248BF00EDFFE2 /* Interface */,
+				C4E92F88275248BF00EDFFE2 /* ViewControllers */,
 				C4E92F85275232AC00EDFFE2 /* Data */,
 				C4E92F52275231BD00EDFFE2 /* AppDelegate.swift */,
 				C4E92F54275231BD00EDFFE2 /* SceneDelegate.swift */,
@@ -161,14 +164,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		C4E92F88275248BF00EDFFE2 /* Interface */ = {
+		C4E92F88275248BF00EDFFE2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				C4E92F89275248F000EDFFE2 /* ProductListTableViewController.swift */,
 				C4E92F8D275265DE00EDFFE2 /* CartDetailTableViewController.swift */,
 				C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */,
 			);
-			path = Interface;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		C4E92F91275269A000EDFFE2 /* Extensions */ = {
@@ -200,6 +203,14 @@
 				C4E92F99275290D600EDFFE2 /* ProductCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C4E92F9D2752CE6200EDFFE2 /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				C4E92F9E2752CE8200EDFFE2 /* AppearanceHelper.swift */,
+			);
+			path = Appearance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +354,7 @@
 				C4E92F9C27529BA700EDFFE2 /* DBHelper.swift in Sources */,
 				C4E92F5D275231BE00EDFFE2 /* Mobile_Technical_Assigment.xcdatamodeld in Sources */,
 				C4E92F8C2752617E00EDFFE2 /* UserCart.swift in Sources */,
+				C4E92F9F2752CE8300EDFFE2 /* AppearanceHelper.swift in Sources */,
 				C4E92F8E275265DE00EDFFE2 /* CartDetailTableViewController.swift in Sources */,
 				C4E92F8A275248F000EDFFE2 /* ProductListTableViewController.swift in Sources */,
 			);

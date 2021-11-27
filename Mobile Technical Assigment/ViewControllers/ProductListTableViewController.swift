@@ -84,16 +84,30 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         return 60.0
     }
     
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var sectionTitle = ""
+        let headerView = UIView()
         
+        let sectionLabel = UILabel()
+        let totalSectionPriceLabel = UILabel()
         if let sectionInfo = self.fetchedResultsController?.sections![section] {
-            sectionTitle = sectionInfo.name.capitalizingFirstLetter() + " " + String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
+            sectionLabel.text = sectionInfo.name.capitalizingFirstLetter()
+            totalSectionPriceLabel.text = String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
         }
         
-        return sectionTitle
+        // Horizontal StackView
+        let stackView = UIStackView()
+        stackView.axis = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 50.0
+        
+        stackView.addArrangedSubview(sectionLabel)
+        stackView.addArrangedSubview(totalSectionPriceLabel)
+        
+        AppearanceHelper.addSubviewWithConstraint(to: headerView, and: stackView, top: 0.0, bottom: 0.0, leading: 20.0, trailing: 0.0)
+        
+        return headerView
     }
 
     
@@ -104,7 +118,6 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
 
         return cell
     }
-    
     
     func configure(Cell cell: UITableViewCell, atIndexPath indexPath: IndexPath){
         
