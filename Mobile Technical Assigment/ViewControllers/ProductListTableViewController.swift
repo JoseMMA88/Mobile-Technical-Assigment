@@ -95,6 +95,10 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
             totalSectionPriceLabel.text = String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
         }
         
+        sectionLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
+        totalSectionPriceLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
+        
+        
         // Horizontal StackView
         let stackView = UIStackView()
         stackView.axis = NSLayoutConstraint.Axis.horizontal
@@ -104,6 +108,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         
         stackView.addArrangedSubview(sectionLabel)
         stackView.addArrangedSubview(totalSectionPriceLabel)
+        stackView.addArrangedSubview(UIView())
         
         AppearanceHelper.addSubviewWithConstraint(to: headerView, and: stackView, top: 0.0, bottom: 0.0, leading: 20.0, trailing: 0.0)
         
