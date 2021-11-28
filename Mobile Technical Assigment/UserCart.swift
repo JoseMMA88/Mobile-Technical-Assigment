@@ -6,7 +6,7 @@
 
 class UserCart {
     var products: [CartProduct] {
-        return DBHelper.getAllCartProduct()
+        return DBHelper.getAllCartProducts()
     }
     
     func addProduct(Product product: Product){
@@ -84,7 +84,7 @@ class UserCart {
         
         var totalProducts = 0
         
-        DBHelper.getAllCartProduct().forEach { cartProduct in
+        DBHelper.getAllCartProducts().forEach { cartProduct in
             totalProducts += Int(cartProduct.quantity)
         }
         

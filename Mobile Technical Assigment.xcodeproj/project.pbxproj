@@ -26,6 +26,7 @@
 		C4E92F9A275290D600EDFFE2 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F99275290D600EDFFE2 /* ProductCell.swift */; };
 		C4E92F9C27529BA700EDFFE2 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */; };
 		C4E92F9F2752CE8300EDFFE2 /* AppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E92F9E2752CE8200EDFFE2 /* AppearanceHelper.swift */; };
+		C4F124402753F62A0059C694 /* API_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F1243F2753F62A0059C694 /* API_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		C4E92F99275290D600EDFFE2 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		C4E92F9B27529BA700EDFFE2 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
 		C4E92F9E2752CE8200EDFFE2 /* AppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceHelper.swift; sourceTree = "<group>"; };
+		C4F1243F2753F62A0059C694 /* API_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,15 +123,14 @@
 			children = (
 				C4E92F9D2752CE6200EDFFE2 /* Appearance */,
 				C4E92F98275290B000EDFFE2 /* Cells */,
-				C4E92F9527528CC300EDFFE2 /* CustomViews */,
 				C4E92F922752809400EDFFE2 /* CustomClasses */,
 				C4E92F91275269A000EDFFE2 /* Extensions */,
 				C4E92F88275248BF00EDFFE2 /* ViewControllers */,
 				C4E92F85275232AC00EDFFE2 /* Data */,
 				C4E92F52275231BD00EDFFE2 /* AppDelegate.swift */,
 				C4E92F54275231BD00EDFFE2 /* SceneDelegate.swift */,
-				C4E92F58275231BE00EDFFE2 /* Main.storyboard */,
 				C4E92F8B2752617E00EDFFE2 /* UserCart.swift */,
+				C4E92F58275231BE00EDFFE2 /* Main.storyboard */,
 				C4E92F5E275231C400EDFFE2 /* Assets.xcassets */,
 				C4E92F60275231C400EDFFE2 /* LaunchScreen.storyboard */,
 				C4E92F63275231C400EDFFE2 /* Info.plist */,
@@ -142,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E92F6C275231C400EDFFE2 /* Mobile_Technical_AssigmentTests.swift */,
+				C4F1243F2753F62A0059C694 /* API_Tests.swift */,
 			);
 			path = "Mobile Technical AssigmentTests";
 			sourceTree = "<group>";
@@ -188,13 +190,6 @@
 				C4E92F93275280AC00EDFFE2 /* CustomButton.swift */,
 			);
 			path = CustomClasses;
-			sourceTree = "<group>";
-		};
-		C4E92F9527528CC300EDFFE2 /* CustomViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		C4E92F98275290B000EDFFE2 /* Cells */ = {
@@ -364,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4F124402753F62A0059C694 /* API_Tests.swift in Sources */,
 				C4E92F6D275231C400EDFFE2 /* Mobile_Technical_AssigmentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +539,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -571,6 +568,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,8 +10,11 @@ import CoreData
 
 public class DBHelper {
     
+    //MARK: Variables
     static var moc: NSManagedObjectContext?
     
+    
+    //MARK: Methods
     static func addCartProduct(ByProduct product: Product){
         
         guard let moc = self.moc else { return }
@@ -24,6 +27,7 @@ public class DBHelper {
         }
     }
     
+    
     static func deleteCartProduct(ByProduct product: Product) {
         
         guard let moc = moc else { return }
@@ -33,22 +37,26 @@ public class DBHelper {
         }
     }
     
+    
     static func deleteAllCartProducts() {
         
         guard let moc = moc else { return }
         
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CartProduct")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try moc.execute(deleteRequest)
-        } catch let error as NSError {
-            print(error)
-        }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CartProduct")
+            fetchRequest.returnsObjectsAsFaults = false
+            do {
+                let results = try moc.fetch(fetchRequest)
+                for object in results {
+                    guard let objectData = object as? NSManagedObject else {continue}
+                    moc.delete(objectData)
+                }
+            } catch let error {
+                print("Detele all data in CartProduct error :", error)
+            }
     }
     
     
-    static func getAllCartProduct() -> [CartProduct]{
+    static func getAllCartProducts() -> [CartProduct]{
         
         guard let moc = moc else { return [] }
 
@@ -70,6 +78,30 @@ public class DBHelper {
         
         return fetchedResultsController.fetchedObjects ?? []
     }
+    
+    
+    static func getAllProducts() -> [Product]{
+        
+        guard let moc = moc else { return [] }
+
+        let fetchRequest: NSFetchRequest = Product.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "type", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: moc,
+                                                                  sectionNameKeyPath: "type",
+                                                                  cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        }
+        catch{
+            print(error)
+        }
+        
+        return fetchedResultsController.fetchedObjects ?? []
+    }
+    
     
     static func getCartProduct(ByProduct product: Product) -> CartProduct?{
         

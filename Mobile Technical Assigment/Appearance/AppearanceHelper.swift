@@ -30,8 +30,6 @@ class AppearanceHelper {
     
     static func center(ChildView childView: UIView, atParentView parentView: UIView) {
         
-        //childView.translatesAutoresizingMaskIntoConstraints = false
-        
         childView.centerXAnchor.constraint(equalTo: parentView.centerXAnchor).isActive = true
         childView.centerYAnchor.constraint(equalTo: parentView.centerYAnchor).isActive = true
     }

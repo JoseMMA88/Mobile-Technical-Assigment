@@ -39,7 +39,9 @@ public class RequestHelper {
                     completion(nil, error)
                 }
                 if let data = data {
-                    completion(data, nil)
+                    DispatchQueue.main.async {
+                        completion(data, nil)
+                    }
                 }
             }
             

@@ -24,11 +24,11 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         self.appDelegate = appDel
         self.moc = appDelegate!.persistentContainer.viewContext
         DBHelper.moc = self.moc
+        
         self.userCart = UserCart()
         
         self.setUpInterface()
     }
-    
     
     // MARK: - Interface
     func setUpInterface(){
@@ -258,6 +258,11 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         return fetchedResultsController
     }
     
+    // MARK: - Fetched Results Controller Delegate
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
+    }
     
     //MARK: CartDetailViewDelegate
     func changesAtUserCart(View view: CartDetailViewController, UserCart userCart: UserCart) {

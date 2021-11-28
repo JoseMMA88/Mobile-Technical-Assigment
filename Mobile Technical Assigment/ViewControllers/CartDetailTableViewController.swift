@@ -155,6 +155,12 @@ class CartDetailTableViewController: UITableViewController, NSFetchedResultsCont
         return fetchedResultsController
     }
     
+    // MARK: - Fetched Results Controller Delegate
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
+    }
+    
     
     //MARK: - Actions
     
@@ -170,8 +176,6 @@ class CartDetailTableViewController: UITableViewController, NSFetchedResultsCont
             self.tableView.reloadData()
             self.delegate?.changesAtUserCart(View: self, UserCart: self.userCart!)
         }
-        
-
     }
     
     
