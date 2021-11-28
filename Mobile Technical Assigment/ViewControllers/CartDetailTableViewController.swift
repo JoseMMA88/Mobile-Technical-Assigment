@@ -49,6 +49,39 @@ class CartDetailTableViewController: UITableViewController, NSFetchedResultsCont
     }
     
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView()
+        
+        let sectionLabel = UILabel()
+        sectionLabel.textColor = .gray
+        let totalSectionPriceLabel = UILabel()
+        totalSectionPriceLabel.textColor = .gray
+        if let sectionInfo = self.fetchedResultsController?.sections![section] {
+            sectionLabel.text = sectionInfo.name.capitalizingFirstLetter()
+            totalSectionPriceLabel.text = String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
+        }
+        
+        sectionLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
+        totalSectionPriceLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
+        
+        // Horizontal StackView
+        let stackView = UIStackView()
+        stackView.axis = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = 100.0
+        
+        stackView.addArrangedSubview(sectionLabel)
+        stackView.addArrangedSubview(totalSectionPriceLabel)
+        stackView.addArrangedSubview(UIView())
+        
+        AppearanceHelper.addSubviewWithConstraint(toParent: headerView, andChild: stackView, top: 0.0, bottom: 0.0, leading: 20.0, trailing: 0.0)
+        
+        return headerView
+    }
+    
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var sectionTitle = ""

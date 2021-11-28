@@ -253,17 +253,17 @@
                         <color key="backgroundColor" name="MainColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="productCell" id="aWK-9H-ZkY" customClass="ProductCell" customModule="Mobile_Technical_Assigment" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="88.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aWK-9H-ZkY" id="SPi-hz-RFA">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="c5k-Zy-tcU">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="88.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="90"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Milk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-02-rhD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="88.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="AVC-7C-zKX"/>
                                                     </constraints>
@@ -272,23 +272,23 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0,00 €" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFo-5W-V8B">
-                                                    <rect key="frame" x="100" y="0.0" width="114" height="88.5"/>
+                                                    <rect key="frame" x="100" y="0.0" width="114" height="90"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7Q1-kv-F7V">
-                                                    <rect key="frame" x="224" y="0.0" width="150" height="88.5"/>
+                                                    <rect key="frame" x="224" y="0.0" width="150" height="90"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AyN-nf-dOj" userLabel="Minus Button">
-                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="88.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="90"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aEf-gy-Lkj">
-                                                                    <rect key="frame" x="10" y="10.5" width="30" height="67.5"/>
+                                                                    <rect key="frame" x="10" y="10.5" width="30" height="69"/>
                                                                     <color key="tintColor" systemColor="labelColor"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoP-Kn-QkU" customClass="CustomButton" customModule="Mobile_Technical_Assigment" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="10" width="30" height="68.5"/>
+                                                                    <rect key="frame" x="10" y="10" width="30" height="70"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain"/>
                                                                 </button>
@@ -306,20 +306,20 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAP-eN-VL2">
-                                                            <rect key="frame" x="50" y="0.0" width="50" height="88.5"/>
+                                                            <rect key="frame" x="50" y="0.0" width="50" height="90"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pH-Hn-zWl" userLabel="Plus Button">
-                                                            <rect key="frame" x="100" y="0.0" width="50" height="88.5"/>
+                                                            <rect key="frame" x="100" y="0.0" width="50" height="90"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Haq-ve-y9Q">
-                                                                    <rect key="frame" x="10" y="10.5" width="30" height="67.5"/>
+                                                                    <rect key="frame" x="10" y="10.5" width="30" height="69"/>
                                                                     <color key="tintColor" systemColor="labelColor"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Si9-W1-PRk" customClass="CustomButton" customModule="Mobile_Technical_Assigment" customModuleProvider="target">
-                                                                    <rect key="frame" x="10" y="10" width="30" height="68.5"/>
+                                                                    <rect key="frame" x="10" y="10" width="30" height="70"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain"/>
                                                                 </button>

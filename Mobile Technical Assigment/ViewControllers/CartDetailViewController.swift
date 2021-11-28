@@ -45,6 +45,10 @@ class CartDetailViewController: UIViewController, CartDetailTableViewDelegate {
     //MARK: Methods
     
     func setUpInterface() {
+        
+        self.navigationController?.navigationBar.subviews.forEach({ $0.removeFromSuperview() })
+        
+        
         self.checkoutButton.layer.cornerRadius = 5
         let titleLabel = String(format: "Checkout %@", "\(self.userCart!.calculateTotalPrice())".toCurrencyFormat())
         self.checkoutButton.setTitle(NSLocalizedString(titleLabel, comment: "Cart total price button title"),
@@ -53,6 +57,7 @@ class CartDetailViewController: UIViewController, CartDetailTableViewDelegate {
     
     //MARK: Actions
     @IBAction func checkoutButtonTapped(_ sender: UIButton){
+        self.userCart?.removeAllProducts()
         self.navigationController?.popViewController(animated: true)
     }
     

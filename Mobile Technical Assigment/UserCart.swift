@@ -37,7 +37,11 @@ class UserCart {
             
             self.products?.removeAll(where: { $0.quantity <= 0 })
         }
-        
+    }
+    
+    func removeAllProducts(){
+        self.products?.removeAll()
+        DBHelper.deleteAllCartProducts()
     }
     
     func getproductCart(ByProduct product: Product) -> CartProduct? {

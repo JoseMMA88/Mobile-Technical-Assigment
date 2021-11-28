@@ -30,8 +30,24 @@ public class DBHelper {
     
     static func deleteCartProduct(ByProduct product: Product) {
         
+        guard let moc = moc else { return }
+        
         if let productCart = self.getCartProduct(ByProduct: product){
-            self.moc!.delete(productCart)
+            moc.delete(productCart)
+        }
+    }
+    
+    static func deleteAllCartProducts() {
+        
+        guard let moc = moc else { return }
+        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CartProduct")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try moc.execute(deleteRequest)
+        } catch let error as NSError {
+            print(error)
         }
     }
     

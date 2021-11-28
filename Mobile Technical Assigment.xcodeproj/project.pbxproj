@@ -168,8 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				C4E92F89275248F000EDFFE2 /* ProductListTableViewController.swift */,
-				C4E92F8D275265DE00EDFFE2 /* CartDetailTableViewController.swift */,
 				C4E92F9627528F7D00EDFFE2 /* CartDetailViewController.swift */,
+				C4E92F8D275265DE00EDFFE2 /* CartDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

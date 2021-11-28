@@ -32,21 +32,55 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
     
     // MARK: - Interface
     func setUpInterface(){
+        
+        // Navigation bar
         self.navigationItem.title = ""
-        self.navigationController!.navigationBar.backgroundColor = UIColor(named: "MainColor")
+        self.navigationController!.navigationBar.backgroundColor = .clear
+        
+        // TableView
         self.tableView.backgroundColor = UIColor(named: "MainColor")
         
         // Title Label
         let textLabel = UILabel()
-        textLabel.text = NSLocalizedString("Hi, shop your favorites", comment: "Hi, shop your favorites")
+        textLabel.text = NSLocalizedString("Hi, shop your favorites.", comment: "Hi, shop your favorites.")
+        
+        // Count Label
+        let countLabel = UILabel()
+        countLabel.text = "\(self.userCart!.products!.count)"
+        countLabel.textAlignment = .center
+        countLabel.font =  countLabel.font.withSize(12)
+        countLabel.textColor = .white
         
         // Cart image
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "cart")
         imageView.tintColor = .label
+        imageView.frame = CGRect(origin: imageView.frame.origin, size: CGSize(width: 50.0, height: 40.0))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cartImageTapped))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
+        
+        let view1 = UIView()
+        view1.isHidden = true
+        if(self.userCart!.products!.count > 0){
+            view1.isHidden = false
+        }
+        view1.backgroundColor = UIColor(named: "redColor")
+        view1.frame = CGRect(origin: imageView.frame.origin, size: CGSize(width: 5.0, height: 10.0))
+        view1.layer.cornerRadius = 10
+        view1.layer.masksToBounds = true
+        view1.addSubview(countLabel)
+        
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        AppearanceHelper.center(ChildView: countLabel, atParentView: view1)
+        
+        let view = UIView()
+        view.addSubview(imageView)
+        
+        AppearanceHelper.center(ChildView: imageView, atParentView: view)
+        
+        AppearanceHelper.addSubviewWithConstraint(toParent: view, andChild: view1, top: 0.0, bottom: -20.0, leading: 30.0, trailing: 0.0)
         
         // Horizontal StackView
         let stackView = UIStackView()
@@ -56,14 +90,16 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         stackView.spacing = 50.0
         
         stackView.addArrangedSubview(textLabel)
-        stackView.addArrangedSubview(imageView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.navigationController?.navigationBar.addSubview(stackView)
+        stackView.addArrangedSubview(view)
         
         let parentView = self.navigationController!.navigationBar
-        stackView.centerYAnchor.constraint(equalTo: parentView.centerYAnchor).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: (self.navigationController?.navigationBar.centerXAnchor)!).isActive = true
+        
+        AppearanceHelper.addSubviewWithConstraint(toParent: parentView,
+                                                  andChild: stackView,
+                                                  top: 0.0,
+                                                  bottom: 0.0,
+                                                  leading: 20.0,
+                                                  trailing: -40.0)
     }
 
     // MARK: - Table view data source
@@ -89,7 +125,9 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         let headerView = UIView()
         
         let sectionLabel = UILabel()
+        sectionLabel.textColor = .gray
         let totalSectionPriceLabel = UILabel()
+        totalSectionPriceLabel.textColor = .gray
         if let sectionInfo = self.fetchedResultsController?.sections![section] {
             sectionLabel.text = sectionInfo.name.capitalizingFirstLetter()
             totalSectionPriceLabel.text = String(self.userCart!.calculatePrice(ByType: sectionInfo.name)).toCurrencyFormat()
@@ -98,19 +136,18 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         sectionLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
         totalSectionPriceLabel.frame = CGRect(origin: totalSectionPriceLabel.frame.origin, size: CGSize(width: 80.0, height: 20.0))
         
-        
         // Horizontal StackView
         let stackView = UIStackView()
         stackView.axis = NSLayoutConstraint.Axis.horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        stackView.spacing = 50.0
+        stackView.spacing = 100.0
         
         stackView.addArrangedSubview(sectionLabel)
         stackView.addArrangedSubview(totalSectionPriceLabel)
         stackView.addArrangedSubview(UIView())
         
-        AppearanceHelper.addSubviewWithConstraint(to: headerView, and: stackView, top: 0.0, bottom: 0.0, leading: 20.0, trailing: 0.0)
+        AppearanceHelper.addSubviewWithConstraint(toParent: headerView, andChild: stackView, top: 0.0, bottom: 0.0, leading: 20.0, trailing: 0.0)
         
         return headerView
     }
@@ -170,6 +207,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
             self.userCart!.addProduct(Product: product)
             self.tableView.reloadData()
             appDelegate?.saveContext()
+            self.setUpInterface()
         }
         
 
@@ -184,6 +222,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
             self.userCart!.removeProduct(Product: product)
             self.tableView.reloadData()
             appDelegate?.saveContext()
+            self.setUpInterface()
         }
     }
     
@@ -222,9 +261,11 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
     //MARK: CartDetailViewDelegate
     func changesAtUserCart(View view: CartDetailViewController, UserCart userCart: UserCart) {
         self.userCart = userCart
+        self.setUpInterface()
         
         _fetchedResultsController = nil
         self.tableView.reloadData()
+        
     }
     
     

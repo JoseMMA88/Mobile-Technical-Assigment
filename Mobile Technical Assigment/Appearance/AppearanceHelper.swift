@@ -10,7 +10,7 @@ import UIKit
 
 class AppearanceHelper {
     
-    static func addSubviewWithConstraint(to parentView: UIView, and childView: UIView, top:CGFloat, bottom:CGFloat, leading:CGFloat, trailing:CGFloat) {
+    static func addSubviewWithConstraint(toParent parentView: UIView, andChild childView: UIView, top:CGFloat, bottom:CGFloat, leading:CGFloat, trailing:CGFloat) {
         parentView.addSubview(childView)
         childView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -26,5 +26,13 @@ class AppearanceHelper {
         parentView.addConstraint(bottomConstraint)
         parentView.addConstraint(leadingConstraint)
         parentView.addConstraint(trailingConstraint)
+    }
+    
+    static func center(ChildView childView: UIView, atParentView parentView: UIView) {
+        
+        //childView.translatesAutoresizingMaskIntoConstraints = false
+        
+        childView.centerXAnchor.constraint(equalTo: parentView.centerXAnchor).isActive = true
+        childView.centerYAnchor.constraint(equalTo: parentView.centerYAnchor).isActive = true
     }
 }
