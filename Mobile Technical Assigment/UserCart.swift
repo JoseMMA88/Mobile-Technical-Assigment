@@ -5,10 +5,8 @@
 //  Created by Jose Manuel Malagón Alba on 27/11/21.
 
 class UserCart {
-    var products: [CartProduct]?
-    
-    init(Products products: [CartProduct]) {
-        self.products = products
+    var products: [CartProduct] {
+        return DBHelper.getAllCartProduct()
     }
     
     func addProduct(Product product: Product){
@@ -18,9 +16,7 @@ class UserCart {
         }
         // ADD new
         else {
-            if let productCart = DBHelper.addCartProduct(ByProduct: product){
-                self.products?.append(productCart)
-            }
+            DBHelper.addCartProduct(ByProduct: product)
         }
     }
     
@@ -34,13 +30,10 @@ class UserCart {
             if(productCart.quantity <= 0){
                 DBHelper.deleteCartProduct(ByProduct: productCart.product!)
             }
-            
-            self.products?.removeAll(where: { $0.quantity <= 0 })
         }
     }
     
     func removeAllProducts(){
-        self.products?.removeAll()
         DBHelper.deleteAllCartProducts()
     }
     
@@ -52,13 +45,12 @@ class UserCart {
         
         var totalPrice = 0.0
         
-        if let typeProducts = self.products?.filter({ product in
+        let typeProducts = self.products.filter({ product in
             return product.product!.type == type
-        }){
+        })
 
-            for product in typeProducts {
-                totalPrice += product.product!.price * Double(product.quantity)
-            }
+        for product in typeProducts {
+            totalPrice += product.product!.price * Double(product.quantity)
         }
         
         return totalPrice
@@ -67,7 +59,7 @@ class UserCart {
     func calculateTotalPrice() -> Double {
         var totalPrice = 0.0
         
-        for cartProduct in self.products! {
+        for cartProduct in self.products {
             totalPrice += cartProduct.product!.price * Double(cartProduct.quantity)
         }
         
@@ -78,7 +70,7 @@ class UserCart {
         var typeNum = 0
         var currenType = ""
         
-        self.products?.forEach({ product in
+        self.products.forEach({ product in
             if(currenType != product.product!.type){
                 typeNum += 1
                 currenType = product.product!.type!
@@ -86,6 +78,17 @@ class UserCart {
         })
         
         return typeNum
+    }
+    
+    func getNumberOfCartProducts() -> Int {
+        
+        var totalProducts = 0
+        
+        DBHelper.getAllCartProduct().forEach { cartProduct in
+            totalProducts += Int(cartProduct.quantity)
+        }
+        
+        return totalProducts
     }
     
 }

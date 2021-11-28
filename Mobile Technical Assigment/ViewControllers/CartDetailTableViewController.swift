@@ -25,7 +25,6 @@ class CartDetailTableViewController: UITableViewController, NSFetchedResultsCont
         super.viewDidLoad()
         
         guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
-    
         self.appDelegate = appDel
         
     }
@@ -163,7 +162,7 @@ class CartDetailTableViewController: UITableViewController, NSFetchedResultsCont
         
         guard let indexPath = sender.indexPath else { return }
         
-        if let product: Product = self.userCart?.products?[indexPath.row].product{
+        if let product: Product = self.userCart?.products[indexPath.row].product{
             self.userCart!.addProduct(Product: product)
             self.appDelegate?.saveContext()
             

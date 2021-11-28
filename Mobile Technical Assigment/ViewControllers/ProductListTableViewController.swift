@@ -24,7 +24,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         self.appDelegate = appDel
         self.moc = appDelegate!.persistentContainer.viewContext
         DBHelper.moc = self.moc
-        self.userCart = UserCart(Products: DBHelper.getAllCartProduct())
+        self.userCart = UserCart()
         
         self.setUpInterface()
     }
@@ -34,6 +34,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
     func setUpInterface(){
         
         // Navigation bar
+        self.navigationController?.navigationBar.subviews.forEach({ $0.removeFromSuperview() })
         self.navigationItem.title = ""
         self.navigationController!.navigationBar.backgroundColor = .clear
         
@@ -46,7 +47,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         
         // Count Label
         let countLabel = UILabel()
-        countLabel.text = "\(self.userCart!.products!.count)"
+        countLabel.text = "\(self.userCart!.getNumberOfCartProducts())"
         countLabel.textAlignment = .center
         countLabel.font =  countLabel.font.withSize(12)
         countLabel.textColor = .white
@@ -62,7 +63,7 @@ class ProductListTableViewController: UITableViewController, NSFetchedResultsCon
         
         let view1 = UIView()
         view1.isHidden = true
-        if(self.userCart!.products!.count > 0){
+        if(self.userCart!.getNumberOfCartProducts() > 0){
             view1.isHidden = false
         }
         view1.backgroundColor = UIColor(named: "redColor")

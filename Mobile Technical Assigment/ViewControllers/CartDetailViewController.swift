@@ -24,11 +24,15 @@ class CartDetailViewController: UIViewController, CartDetailTableViewDelegate {
     var userCart: UserCart?
     var moc: NSManagedObjectContext?
     var delegate: CartDetailViewDelegate?
+    var appDelegate: AppDelegate?
     
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+        self.appDelegate = appDel
         
         self.setUpInterface()
     }
@@ -58,6 +62,7 @@ class CartDetailViewController: UIViewController, CartDetailTableViewDelegate {
     //MARK: Actions
     @IBAction func checkoutButtonTapped(_ sender: UIButton){
         self.userCart?.removeAllProducts()
+        self.appDelegate?.saveContext()
         self.navigationController?.popViewController(animated: true)
     }
     

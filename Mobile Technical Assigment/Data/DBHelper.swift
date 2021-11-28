@@ -12,20 +12,16 @@ public class DBHelper {
     
     static var moc: NSManagedObjectContext?
     
-    static func addCartProduct(ByProduct product: Product) -> CartProduct?{
+    static func addCartProduct(ByProduct product: Product){
         
-        guard let moc = self.moc else { return nil }
+        guard let moc = self.moc else { return }
         
         let entityCartProduct = NSEntityDescription.entity(forEntityName: "CartProduct", in: moc)
         
         if let objectCartProduct = NSManagedObject(entity: entityCartProduct!, insertInto: moc ) as? CartProduct{
             objectCartProduct.product = product
             objectCartProduct.quantity = 1
-            
-            return objectCartProduct
         }
-        
-        return nil
     }
     
     static func deleteCartProduct(ByProduct product: Product) {
