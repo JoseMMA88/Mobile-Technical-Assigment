@@ -121,18 +121,18 @@
 		C4E92F51275231BD00EDFFE2 /* Mobile Technical Assigment */ = {
 			isa = PBXGroup;
 			children = (
-				C4E92F9D2752CE6200EDFFE2 /* Appearance */,
+				C4E92F91275269A000EDFFE2 /* Extensions */,
 				C4E92F98275290B000EDFFE2 /* Cells */,
 				C4E92F922752809400EDFFE2 /* CustomClasses */,
-				C4E92F91275269A000EDFFE2 /* Extensions */,
+				C4E92F9D2752CE6200EDFFE2 /* Appearance */,
 				C4E92F88275248BF00EDFFE2 /* ViewControllers */,
 				C4E92F85275232AC00EDFFE2 /* Data */,
 				C4E92F52275231BD00EDFFE2 /* AppDelegate.swift */,
 				C4E92F54275231BD00EDFFE2 /* SceneDelegate.swift */,
 				C4E92F8B2752617E00EDFFE2 /* UserCart.swift */,
 				C4E92F58275231BE00EDFFE2 /* Main.storyboard */,
-				C4E92F5E275231C400EDFFE2 /* Assets.xcassets */,
 				C4E92F60275231C400EDFFE2 /* LaunchScreen.storyboard */,
+				C4E92F5E275231C400EDFFE2 /* Assets.xcassets */,
 				C4E92F63275231C400EDFFE2 /* Info.plist */,
 				C4E92F5B275231BE00EDFFE2 /* Mobile_Technical_Assigment.xcdatamodeld */,
 			);
